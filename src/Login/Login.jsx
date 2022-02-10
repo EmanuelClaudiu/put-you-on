@@ -1,24 +1,32 @@
 import {useDispatch, useSelector} from "react-redux";
+import {useEffect, useState} from "react";
 
-const selectStatus = state => state.logged_in;
+const selectState = state => state;
+
+const AUTH_ENDPOINT = 'https://accounts.spotify.com/authorize';
 
 const LoginPage = () => {
-    const status = useSelector(selectStatus);
+    const status = useSelector(selectState);
     const dispatch = useDispatch();
 
-    const makai = (event) => {
-        const b = 2;
-        const a = 1;
-        const c = event;
-        dispatch({type: 'LOGOUT'});
-    }
+    const [token, setToken] = useState(status.token);
+
+    useEffect(() => {
+        console.log(status);
+        if  (token === null) {
+
+        } else {
+            const hash = window.location.hash;
+            setToken(hash.substring(1).split('&').find(elem => elem.startsWith('access_token')).split('=')[1]);
+            console.log(token);
+            dispatch({type: 'SET_TOKEN', token: token});
+        }
+    }, []);
 
     return(<>
         <div>
-            {status && <p>Makai</p>}
-            {!status && <p>No Makai</p>}
-            <button onClick={() => dispatch({type: 'LOGIN'})}>Login</button>
-            <button onClick={makai}>Logout</button>
+            <h1>Spotify Makai</h1>
+            <button><a href={`${AUTH_ENDPOINT}?client_id=${status.CLIENT_ID}&redirect_uri=${status.REDIRECT_URI}&response_type=token`}>Log into Spotify</a></button>
         </div>
     </>);
 };
