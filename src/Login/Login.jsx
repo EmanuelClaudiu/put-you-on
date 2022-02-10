@@ -1,25 +1,25 @@
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect, useState} from "react";
-
-const selectState = state => state;
+import {useNavigate} from "react-router-dom";
 
 const AUTH_ENDPOINT = 'https://accounts.spotify.com/authorize';
 
 const LoginPage = () => {
-    const status = useSelector(selectState);
+    const status = useSelector(state => state);
     const dispatch = useDispatch();
-
-    const [token, setToken] = useState(status.token);
+    const navigate = useNavigate();
 
     useEffect(() => {
-        console.log(status);
-        if  (token === null) {
-
-        } else {
+        if (!window.localStorage.getItem('token')) {
             const hash = window.location.hash;
-            setToken(hash.substring(1).split('&').find(elem => elem.startsWith('access_token')).split('=')[1]);
-            console.log(token);
-            dispatch({type: 'SET_TOKEN', token: token});
+            try {
+                const token = hash.substring(1).split('&').find(elem => elem.startsWith('access_token')).split('=')[1];
+                window.localStorage.setItem('token', token);
+                dispatch({type: 'SET_TOKEN', token: token});
+                navigate('/home');
+            } catch (error) {}
+        } else {
+            navigate('/');
         }
     }, []);
 

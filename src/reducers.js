@@ -3,8 +3,7 @@ const SET_TOKEN = 'SET_TOKEN';
 const initialState = {
     CLIENT_ID: '72e354833a894594b5a19ac37fbf3f06',
     REDIRECT_URI: 'http://localhost:3000',
-    token: null,
-    logged_in: false,
+    token: window.localStorage.getItem('token') ? window.localStorage.getItem('token') : null,
 }
 
 export default function rootReducer(state = initialState, action) {
