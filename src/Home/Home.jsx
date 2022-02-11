@@ -15,7 +15,7 @@ const HomePage = () => {
     useEffect(async () => {
         const token = window.localStorage.getItem('token') ? window.localStorage.getItem('token') : null;
         if (token) {
-            await dispatch({type: 'SET_TOKEN', token: token});
+            dispatch({type: 'SET_TOKEN', token: token});
             await get_followed_artists(state, dispatch);
             await get_library_albums_artists(state, dispatch);
             await get_artists_from_your_top(state, dispatch);
@@ -28,7 +28,8 @@ const HomePage = () => {
         <div>
             {artists.length && artists.map((artist, id) => <p key={id}>{artist.name + ' - ' + artist.id}</p>)}
             <button onClick={() => {
-                setArtists(state.artists_ids);
+                setArtists(state.artists);
+                console.log(state.artists);
                 console.log(state.artists_ids);
             }}>Show Artists</button>
         </div>

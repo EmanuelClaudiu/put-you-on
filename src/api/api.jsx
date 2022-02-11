@@ -9,8 +9,16 @@ export const get_followed_artists = async (state, dispatch) => {
             'Authorization': `Bearer ${window.localStorage.getItem('token')}`
         },
     }).then((response) => {
-        dispatch({type: 'ADD_ARTISTS', artists: response.data.artists.items});
-        return Promise.resolve(response.data.artists.items);
+        const toReturn = [];
+        const artists = response.data.artists.items;
+        artists.forEach(artist => toReturn.push({
+            id: artist.id,
+            name: artist.name,
+            external_urls: artist.external_urls,
+            href: artist.href,
+        }));
+        dispatch({type: 'ADD_ARTISTS', artists: toReturn});
+        return Promise.resolve(toReturn);
     }, error => {
         return Promise.reject(error);
     });
@@ -24,7 +32,7 @@ export const get_library_albums_artists = async (state, dispatch) => {
             'Authorization': `Bearer ${window.localStorage.getItem('token')}`
         },
     }).then((response) => {
-        const artists = get_all_artists_from_albums(response.data.items);
+        const artists = get_all_artists_from_albums(response.data.items, state);
         dispatch({type: 'ADD_ARTISTS', artists: artists});
         return Promise.resolve(artists);
     }, error => {
@@ -40,7 +48,7 @@ export const get_artists_from_your_top = async (state, dispatch) => {
             'Authorization': `Bearer ${window.localStorage.getItem('token')}`
         },
     }).then((response) => {
-        const artists = get_all_artists_from_albums(response.data.items);
+        const artists = get_all_artists_from_albums(response.data.items, state);
         dispatch({type: 'ADD_ARTISTS', artists: artists});
         return Promise.resolve(artists);
     }, error => {
