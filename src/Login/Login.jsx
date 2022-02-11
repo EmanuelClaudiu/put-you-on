@@ -8,6 +8,7 @@ const LoginPage = () => {
     const status = useSelector(state => state);
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const [url, setUrl] = useState('');
 
     useEffect(() => {
         if (!window.localStorage.getItem('token')) {
@@ -16,8 +17,11 @@ const LoginPage = () => {
                 const token = hash.substring(1).split('&').find(elem => elem.startsWith('access_token')).split('=')[1];
                 window.localStorage.setItem('token', token);
                 dispatch({type: 'SET_TOKEN', token: token});
-                navigate('/home');
-            } catch (error) {}
+                navigate('/');
+            } catch (error) {
+                setUrl(`${AUTH_ENDPOINT}?client_id=${status.CLIENT_ID}&redirect_uri=${status.REDIRECT_URI}&response_type=token` +
+                        `&scope=user-follow-read user-library-read user-top-read`);
+            }
         } else {
             navigate('/');
         }
@@ -26,7 +30,7 @@ const LoginPage = () => {
     return(<>
         <div>
             <h1>Spotify Makai</h1>
-            <button><a href={`${AUTH_ENDPOINT}?client_id=${status.CLIENT_ID}&redirect_uri=${status.REDIRECT_URI}&response_type=token`}>Log into Spotify</a></button>
+            <button><a href={url}>Log into Spotify</a></button>
         </div>
     </>);
 };
