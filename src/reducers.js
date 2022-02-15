@@ -5,6 +5,7 @@ const ADD_ARTISTS = 'ADD_ARTISTS';
 const SET_ARTISTS = 'SET_ARTISTS';
 const CLEAR_NEXT_CALLS = 'CLEAR_NEXT_CALLS';
 const ADD_NEXT_CALL = 'ADD_NEXT_CALL';
+const CLEAR_ALL = 'CLEAR_ALL';
 
 const initialState = {
     CLIENT_ID: '72e354833a894594b5a19ac37fbf3f06',
@@ -33,6 +34,8 @@ export default function rootReducer(state = initialState, action) {
             return {...state, next_calls: [...state.next_calls, action.next_call]};
         case SET_TOKEN:
             return {...state, token: action.token};
+        case CLEAR_ALL:
+            return initialState;
         default:
             return state;
     }

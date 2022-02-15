@@ -11,7 +11,6 @@ const HomePage = () => {
     const state = useSelector(state => state);
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const [artists, setArtists] = useState('');
 
     useEffect(async () => {
         const token = window.localStorage.getItem('token') ? window.localStorage.getItem('token') : null;
@@ -28,13 +27,12 @@ const HomePage = () => {
 
     return (<>
         <div>
-            {artists.length && artists.map((artist, id) => <p key={id}>{artist.name + ' - ' + artist.id}</p>)}
             <button onClick={() => {
-                setArtists(state.artists);
                 console.log(state.artists);
                 console.log(state.artists_ids);
             }}>Show Artists</button>
             {state.artists.length >= 0 && <button onClick={() => {eliminate_duplicates(state, dispatch)}}>Engage</button>}
+            <button onClick={() => navigate('/logout')}>Logout</button>
         </div>
     </>);
 };
