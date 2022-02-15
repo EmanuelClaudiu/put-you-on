@@ -13,3 +13,17 @@ export const get_all_artists_from_albums = (albums, state) => {
     });
     return toReturn;
 }
+
+export const eliminate_duplicates = (state, dispatch) => {
+    let toReturn = [];
+    state.artists.forEach(artist => {
+        let exists = false;
+        toReturn.forEach(a => {
+            if (artist.id === a.id) exists = true;
+        });
+        if (!exists) toReturn.push(artist);
+    });
+    dispatch({type: 'SET_ARTISTS', artists: toReturn});
+    console.log(toReturn);
+    return toReturn;
+}
