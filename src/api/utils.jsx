@@ -1,4 +1,4 @@
-export const get_all_artists_from_albums = (albums, state) => {
+export const get_all_artists_from_albums = (albums) => {
     const toReturn = [];
     albums.forEach(album => {
         const artists = album.album.artists;
@@ -14,16 +14,14 @@ export const get_all_artists_from_albums = (albums, state) => {
     return toReturn;
 }
 
-export const eliminate_duplicates = (state, dispatch) => {
+export const eliminate_duplicates = (artists) => {
     let toReturn = [];
-    state.artists.forEach(artist => {
+    artists.forEach(artist => {
         let exists = false;
         toReturn.forEach(a => {
             if (artist.id === a.id) exists = true;
         });
         if (!exists) toReturn.push(artist);
     });
-    dispatch({type: 'SET_ARTISTS', artists: toReturn});
-    console.log(toReturn);
     return toReturn;
 }
