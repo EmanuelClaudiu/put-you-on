@@ -9,10 +9,10 @@ const SET_MONTH = 'SET_MONTH';
 
 const initialState = {
     CLIENT_ID: '72e354833a894594b5a19ac37fbf3f06',
-    REDIRECT_URI: 'http://localhost:3000/login',
     token: window.localStorage.getItem('token') ? window.localStorage.getItem('token') : null,
     //user data
     artists: [],
+    loaded: false,
     //session data
     current_year: 0,
     current_month: 0,
@@ -24,7 +24,7 @@ export default function rootReducer(state = initialState, action) {
         case ADD_ARTISTS:
             return {...state, artists: [...state.artists, ...action.artists]};
         case SET_ARTISTS:
-            return {...state, artists: [...action.artists]};
+            return {...state, artists: [...action.artists], loaded: true};
         case SET_TOKEN:
             return {...state, token: action.token};
         case CLEAR_YEAR:

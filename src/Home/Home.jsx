@@ -18,11 +18,11 @@ const HomePage = () => {
 
     return (<>
         <div>
-            <button onClick={() => {
-                initialize_artists().then(response => {
+            <button onClick={async () => {
+                await initialize_artists().then(response => {
                     dispatch({type: 'SET_ARTISTS', artists: response});
                 })
-                navigate('/pick_year');
+                navigate('/pick_period');
             }}>Engage</button>
             <button onClick={() => navigate('/logout')}>Logout</button>
         </div>

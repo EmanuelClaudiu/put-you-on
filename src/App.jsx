@@ -5,9 +5,8 @@ import LoginPage from "./Login/Login";
 import HomePage from "./Home/Home";
 import Root from "./Root/Root";
 import LogoutPage from "./Logout/Logout";
-import PickYear from "./Onboarding/PickYear";
-import PickMonth from "./Onboarding/PickMonth";
 import WeekView from "./WeekView/WeekView";
+import PickPeriod from "./Onboarding/PickPeriod";
 
 const App = () => {
   return (
@@ -17,8 +16,7 @@ const App = () => {
               <Route path={"/login"} element={<LoginPage />}/>
               <Route path={"/logout"} element={<LogoutPage/> }/>
               <Route path={"/home"} element={<HomePage />}/>
-              <Route path={"/pick_year"} element={<PickYear />}/>
-              <Route path={"/pick_month"} element={<PickMonth />}/>
+              <Route path={"/pick_period"} element={<PickPeriod />}/>
               <Route path={"/week_view"} element={<WeekView />}/>
           </Routes>
       </BrowserRouter>

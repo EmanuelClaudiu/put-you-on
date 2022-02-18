@@ -3,6 +3,7 @@ import {useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 
 const AUTH_ENDPOINT = 'https://accounts.spotify.com/authorize';
+const REDIRECT_URI = 'http://localhost:3000/login';
 
 const LoginPage = () => {
     const status = useSelector(state => state);
@@ -19,7 +20,7 @@ const LoginPage = () => {
                 dispatch({type: 'SET_TOKEN', token: token});
                 navigate('/');
             } catch (error) {
-                setUrl(`${AUTH_ENDPOINT}?client_id=${status.CLIENT_ID}&redirect_uri=${status.REDIRECT_URI}&response_type=token` +
+                setUrl(`${AUTH_ENDPOINT}?client_id=${status.CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=token` +
                         `&scope=user-follow-read user-library-read user-top-read`);
             }
         } else {

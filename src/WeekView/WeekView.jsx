@@ -15,6 +15,8 @@ const WeekView = () => {
 
     return (<>
         <button onClick={() => {console.log(state)}}>Show State</button>
+        <button onClick={() => {navigate("/pick_period")}}>Switch Year</button>
+        <button onClick={() => {navigate("/logout")}}>Logout</button>
     </>)
 };
 
