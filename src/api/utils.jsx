@@ -43,6 +43,21 @@ export const get_day_from_date = (date) => {
     return tokens[2];
 }
 
+export const map_month_to_name = (month) => {
+    if (month === 1) { return 'Jan' }
+    if (month === 2) { return 'Feb' }
+    if (month === 3) { return 'Mar' }
+    if (month === 4) { return 'Apr' }
+    if (month === 5) { return 'May' }
+    if (month === 6) { return 'Jun' }
+    if (month === 7) { return 'Jul' }
+    if (month === 8) { return 'Aug' }
+    if (month === 9) { return 'Sep' }
+    if (month === 10) { return 'Oct' }
+    if (month === 11) { return 'Nov' }
+    if (month === 12) { return 'Dec' }
+}
+
 export const set_albums_indexed = (artists, dispatch) => {
     artists.forEach(artist => {
         get_albums_for_artist(artist.id).then(response => {
