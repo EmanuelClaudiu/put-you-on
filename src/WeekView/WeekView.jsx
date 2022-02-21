@@ -1,11 +1,15 @@
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {useNavigate} from "react-router-dom";
 import {useEffect} from "react";
+import {initialize_albums} from "../api/initializers";
 
 const WeekView = () => {
 
     const state = useSelector(state => state);
+    const dispatch = useDispatch();
     const navigate = useNavigate();
+    const available_years = [2022, 2021, 2020, 2019, 2018, 2017, 2016, 2015, 2014, 2013,
+        2012, 2011, 2010, 2009, 2008, 2007, 2006, 2005, 2004, 2003, 2002, 2001, 2000];
 
     useEffect(() => {
         if (state.artists.length === 0) {
@@ -15,6 +19,11 @@ const WeekView = () => {
 
     return (<>
         <button onClick={() => {console.log(state)}}>Show State</button>
+        <button onClick={async () => {
+            await initialize_albums(state.artists, available_years).then(response =>
+                dispatch({type: 'SET_ALBUMS_INDEXED', albums_indexed: response})
+            );
+        }}>Show Albums</button>
         <button onClick={() => {navigate("/pick_period")}}>Switch Year</button>
         <button onClick={() => {navigate("/logout")}}>Logout</button>
     </>)

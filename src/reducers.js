@@ -6,6 +6,7 @@ const CLEAR_YEAR = 'CLEAR_YEAR';
 const CLEAR_MONTH = 'CLEAR_MONTH';
 const SET_YEAR = 'SET_YEAR';
 const SET_MONTH = 'SET_MONTH';
+const SET_ALBUMS_INDEXED = "SET_ALBUMS_INDEXED";
 
 const initialState = {
     CLIENT_ID: '72e354833a894594b5a19ac37fbf3f06',
@@ -13,6 +14,7 @@ const initialState = {
     //user data
     artists: [],
     loaded: false,
+    albums_indexed: [],
     //session data
     current_year: 0,
     current_month: 0,
@@ -27,6 +29,8 @@ export default function rootReducer(state = initialState, action) {
             return {...state, artists: [...action.artists], loaded: true};
         case SET_TOKEN:
             return {...state, token: action.token};
+        case SET_ALBUMS_INDEXED:
+            return {...state, albums_indexed: action.albums_indexed};
         case CLEAR_YEAR:
             return {...state, current_year: 0};
         case CLEAR_MONTH:

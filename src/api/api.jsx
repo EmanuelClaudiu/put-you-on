@@ -54,3 +54,15 @@ export const get_artists_from_your_top = () => {
         return Promise.reject(error);
     });
 }
+
+export const get_albums_for_artist = (id) => {
+    return axios.get(`${BASE_URL}/v1/artists/${id}/albums?limit=50`, {
+        headers: {
+            'Accept': "application/json",
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${window.localStorage.getItem('token')}`
+        },
+    }).then(response => { return Promise.resolve(response.data.items); },
+            error => { return Promise.reject(error) }
+    );
+}
