@@ -1,8 +1,8 @@
 import {useEffect} from "react";
 import {useNavigate} from "react-router-dom";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import "./Home.css";
-import {initialize_artists} from "../api/initializers";
+import {initialize_albums, initialize_artists} from "../api/initializers";
 
 const HomePage = () => {
 
@@ -19,9 +19,10 @@ const HomePage = () => {
     return (<>
         <div>
             <button onClick={async () => {
-                await initialize_artists().then(response => {
+                await initialize_artists().then(async response => {
                     dispatch({type: 'SET_ARTISTS', artists: response});
-                })
+                    initialize_albums(response, dispatch);
+                });
                 navigate('/pick_period');
             }}>Engage</button>
             <button onClick={() => navigate('/logout')}>Logout</button>

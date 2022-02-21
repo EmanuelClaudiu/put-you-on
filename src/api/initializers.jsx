@@ -3,7 +3,7 @@ import {
     get_followed_artists,
     get_library_albums_artists
 } from "./api";
-import {eliminate_duplicates, get_albums_indexed} from "./utils";
+import {eliminate_duplicates, get_albums_indexed, set_albums_indexed} from "./utils";
 
 export const initialize_artists = async () => {
     let toReturn = [];
@@ -20,10 +20,6 @@ export const initialize_artists = async () => {
     return toReturn;
 };
 
-export const initialize_albums = async (artists, available_years) => {
-    let toReturn = [];
-    await get_albums_indexed(artists, available_years).then(response => {
-        toReturn = [...response];
-    });
-    return toReturn;
+export const initialize_albums = async (artists, dispatch) => {
+    set_albums_indexed(artists, dispatch);
 };

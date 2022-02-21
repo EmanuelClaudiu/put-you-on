@@ -43,32 +43,16 @@ export const get_day_from_date = (date) => {
     return tokens[2];
 }
 
-export const get_albums_indexed = (artists, available_years) => {
-    let albums_indexed = [];
-    available_years.forEach(year => {
-        albums_indexed.push({
-            year: year,
-            q1: [],
-            q2: [],
-            q3: []
-        });
-    });
+export const set_albums_indexed = (artists, dispatch) => {
     artists.forEach(artist => {
         get_albums_for_artist(artist.id).then(response => {
             response.forEach(album => {
                 if (album.album_group === 'album' || album.album_group === 'single') {
                     const year = get_year_from_date(album.release_date);
                     const month = get_month_from_date(album.release_date);
-                    albums_indexed.forEach(a => {
-                        if (a.year.toString() === year) {
-                            if (month <= 4) { a.q1.push(album); }
-                            if (month > 4 && month <= 8) { a.q2.push(album); }
-                            if (month > 8) { a.q3.push(album); }
-                        }
-                    })
+                    dispatch({type: 'ADD_TO_ALBUMS_INDEXED', album: album, year: year, month: month});
                 }
             });
         });
     });
-    return Promise.resolve(albums_indexed);
 }

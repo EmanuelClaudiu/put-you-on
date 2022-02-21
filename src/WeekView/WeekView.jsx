@@ -26,6 +26,20 @@ const WeekView = () => {
         }}>Show Albums</button>
         <button onClick={() => {navigate("/pick_period")}}>Switch Year</button>
         <button onClick={() => {navigate("/logout")}}>Logout</button>
+        {state.albums_indexed.length >= 0 && state.albums_indexed.map((year, i) => <div>
+            <h1 key={i}>{year.year}</h1>
+            <div>
+                {year.q1 && year.q1.map((album, i1) => <div key={i1}>
+                    <p>{album.name} - <a href={album.external_urls.spotify}>{album.external_urls.spotify}</a></p>
+                </div>)}
+                {year.q2 && year.q2.map((album, i1) => <div key={i1}>
+                    <p>{album.name} - <a href={album.external_urls.spotify}>{album.external_urls.spotify}</a></p>
+                </div>)}
+                {year.q2 && year.q2.map((album, i1) => <div key={i1}>
+                    <p>{album.name} - <a href={album.external_urls.spotify}>{album.external_urls.spotify}</a></p>
+                </div>)}
+            </div>
+        </div>)}
     </>)
 };
 
