@@ -3,7 +3,7 @@ import {useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 
 const AUTH_ENDPOINT = 'https://accounts.spotify.com/authorize';
-const REDIRECT_URI = 'http://localhost:3000/login';
+const REDIRECT_URI = 'https://put-you-on.vercel.app/login';
 
 const LoginPage = () => {
     const status = useSelector(state => state);
